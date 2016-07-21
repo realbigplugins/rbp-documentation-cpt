@@ -30,7 +30,7 @@ class RBM_CPT_Documentation extends RBM_CPT {
             'all_items' => __( 'All Documentation', CPT_Documentation_Plugin::$plugin_id ),
         );
 
-		parent::__construct();
+        parent::__construct();
         
 	}
 
