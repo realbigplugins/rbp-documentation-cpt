@@ -72,6 +72,8 @@ class CPT_Documentation_Plugin {
         
         add_filter( 'p2p_relationships', array( $this, 'p2p_relationship' ) );
         
+        add_filter( 'rbm_cpts_available_p2p_posts', array( $this, 'p2p_query_args' ) );
+        
     }
     
     /**
@@ -146,6 +148,24 @@ class CPT_Documentation_Plugin {
         $relationships['download'] = 'documentation';
 
         return $relationships;
+        
+    }
+    
+    /**
+     * Modifies WP Query Args for the P2P Relationship
+     * 
+     * @access      public
+     * @since       0.1.0
+     * 
+     * @param       array $args WP Query Args
+     * @return      array WP Query Args
+     */
+    public function p2p_query_args( $args ) {
+        
+        // Only show Top-Level Documentation Posts
+        $args['post_parent'] = 0;
+        
+        return $args;
         
     }
     
