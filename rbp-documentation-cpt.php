@@ -149,6 +149,13 @@ class CPT_Documentation_Plugin {
         
     }
     
+    /**
+     * Error Message if dependencies aren't meta_is_product_attribute()
+     * 
+     * @access      public
+     * @since       0.1.0
+     * @return      void
+     */
     public static function missing_dependencies() { ?>
 
         <div class="notice notice-error">
