@@ -32,6 +32,6 @@ class RBM_CPT_Documentation extends RBM_CPT {
 
         parent::__construct();
         
-	}
+    }
 
 }
