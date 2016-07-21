@@ -74,6 +74,8 @@ class CPT_Documentation_Plugin {
         
         add_filter( 'rbm_cpts_available_p2p_posts', array( $this, 'p2p_query_args' ) );
         
+        add_filter( 'template_include', array( $this, 'no_child_permalinks' ) );
+        
     }
     
     /**
@@ -166,6 +168,36 @@ class CPT_Documentation_Plugin {
         $args['post_parent'] = 0;
         
         return $args;
+        
+    }
+    
+    /**
+     * Child Documentation Pages don't have a Single
+     * 
+     * @access      public
+     * @since       0.1.0
+     * 
+     * @param       string $template Template File Path
+     * @return      string Template File Path
+     */
+    public function no_child_permalinks( $template ) {
+        
+        global $wp_query;
+        global $post;
+
+        if ( get_post_type() == 'documentation' ) {
+
+            if ( $post->post_parent !== 0 ) {
+
+                $wp_query->set_404();
+
+                return get_query_template( '404' );
+
+            }
+
+        }
+
+        return $template;
         
     }
     
