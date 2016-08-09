@@ -130,7 +130,7 @@ class CPT_Documentation_Plugin {
         if ( isset( $wp_post_types[ $post_type ] ) ) {
             unset( $wp_post_types[ $post_type ] );
 
-            $slug = ( ! $slug ) ? 'edit.php?post_type=' . $post_type : $slug;
+            $slug = 'edit.php?post_type=' . $post_type;
             remove_menu_page( $slug );
         }
         
