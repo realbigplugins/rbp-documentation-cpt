@@ -67,9 +67,6 @@ class CPT_Documentation_Plugin {
         // Doing these within a Hook so I have access to some other WP functions
         add_action( 'init', array( $this, 'setup_constants' ) );
         
-        // Remove "Palm Tree" Post Type included in RBM CPTs
-        add_action( 'init', array( $this, 'chopping_palm_trees' ) );
-        
         add_filter( 'p2p_relationships', array( $this, 'p2p_relationship' ) );
         
         add_filter( 'rbm_cpts_available_p2p_posts', array( $this, 'p2p_query_args' ) );
@@ -112,27 +109,6 @@ class CPT_Documentation_Plugin {
         
         // Plugin URL
         define( 'CPT_Documentation_Plugin_URL', plugin_dir_url( __FILE__ ) );
-        
-    }
-    
-    /**
-     * RBM CPTs Ships with a Post Type included with no way _currently_ to disable it.
-     * 
-     * @access      public
-     * @since       0.1.0
-     * @return      void
-     */
-    public function chopping_palm_trees() {
-	
-        global $wp_post_types;
-        $post_type = 'palm-tree';
-
-        if ( isset( $wp_post_types[ $post_type ] ) ) {
-            unset( $wp_post_types[ $post_type ] );
-
-            $slug = 'edit.php?post_type=' . $post_type;
-            remove_menu_page( $slug );
-        }
         
     }
     
