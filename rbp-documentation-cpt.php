@@ -158,22 +158,72 @@ class CPT_Documentation_Plugin {
      */
     public function no_child_permalinks( $template ) {
         
-        global $wp_query;
         global $post;
 
         if ( get_post_type() == 'documentation' ) {
 
+            // Redirect to the appropriate Anchor within the Page if the direct URL has been used
             if ( $post->post_parent !== 0 ) {
+                
+                $top_level_documentation = $this->get_top_parent_page_id( $post->post_parent );
 
-                $wp_query->set_404();
+                $parent_permalink = trailingslashit( get_permalink( $top_level_documentation ) );
 
-                return get_query_template( '404' );
+                $anchor = preg_replace( '/^([0-9]|[a-z])+\./i', '', $post->post_title );
+
+                $anchor = trim( $anchor ); // Ensure all extra spaces are out before our replacements
+
+                $anchor = str_replace( ' ', '-', strtolower( $anchor ) );
+                
+                wp_redirect( $parent_permalink . '#' . $anchor );
+                exit;
 
             }
 
         }
 
         return $template;
+        
+    }
+    
+    /**
+     * Gets the Top Most Post ID
+     * 
+     * @access      private
+     * @since       0.1.0
+     * 
+     * @param       integer   $post_id Post ID we're checking against
+     * @return      int|mixed The Top Most Post ID
+     */
+    public function get_top_parent_page_id( $post_id = 0 ) {
+        
+        global $post;
+        
+        if ( ! $post && is_admin() && isset( $_GET['post'] ) ) {
+            $post = get_post( $_GET['post'] );
+        }
+        elseif ( ! $post ) {
+            return false;
+        }
+        
+        if ( $post_id !== 0 ) {
+            $_post = get_post( $post_id );
+        }
+        else {
+            $_post = $post;
+        }
+        
+        $ancestors = $_post->ancestors;
+        
+        // Check if page is a child page (any level)
+        if ( $ancestors ) {
+            //  Grab the ID of top-level page from the tree
+            return end( $ancestors );
+        }
+        else {
+            // Page is the top level, so use it's own id
+            return $_post->ID;
+        }
         
     }
     
