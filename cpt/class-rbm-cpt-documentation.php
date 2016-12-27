@@ -45,7 +45,7 @@ class RBM_CPT_Documentation extends RBM_CPT {
 
 		parent::__construct();
 
-		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
+		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ), 20 );
 		add_filter( 'rbm_fields_save', array( $this, 'save_order' ) );
 	}
 
@@ -56,6 +56,12 @@ class RBM_CPT_Documentation extends RBM_CPT {
 	 * @access private
 	 */
 	function add_meta_boxes() {
+
+		// Remove P2P from non top-level doc pages to remove confusion
+		if ( wp_get_post_parent_id( get_the_ID() ) ) {
+
+			remove_meta_box( 'rbm-p2ps', 'documentation', 'side' );
+		}
 
 		add_meta_box(
 			'rbp-documentation-order',
