@@ -14,6 +14,7 @@ class RBM_CPT_Documentation extends RBM_CPT {
 	public $label_plural = null;
 	public $labels = array();
 	public $icon = 'welcome-write-blog';
+	public $p2p = 'download';
 	public $post_args = array(
 		'hierarchical' => true,
 		'supports'     => array( 'title', 'editor', 'author', 'page-attributes', 'thumbnail' ),
