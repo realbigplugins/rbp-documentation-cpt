@@ -25,6 +25,7 @@ class RBM_CPT_Documentation extends RBM_CPT {
 			'feeds'      => false,
 			'pages'      => true
 		),
+		'capability_type' => 'documentation',
 	);
 
 	/**
