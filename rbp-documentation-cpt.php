@@ -2,7 +2,7 @@
 /**
  * Plugin Name: RBP Documentation CPT
  * Description: Creates Documentation custom post types and its related Fields.
- * Version: 0.3.0
+ * Version: 0.4.0
  * Author: Eric Defore
  * Author URI: http://realbigmarketing.com
  * Text Domain: rbp-documentation
