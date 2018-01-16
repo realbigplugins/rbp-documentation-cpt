@@ -40,8 +40,42 @@ function edd_rbp_documentation_links( $payment_id ) {
 	if ( $cart_items ) : ?>
 		
 		<ul>
+			
+			<?php 
+	
+			// Bundles are their own Downloads, therefore are not linked to the Documentation like we need
+			// Here we loop through each item, find Bundles, grab their Downloads, and remove the Bundle Item from our version of teh Cart before adding back in the individual Bundled Items in a format similar enough to the Cart for our old code to work
+			$bundled_items = array();
+			foreach ( $cart_items as $index => $item ) : 
+	
+				$download_id = $item['id'];
+	
+				if ( ! edd_is_bundled_product( $download_id ) ) continue;
+	
+				foreach( edd_get_bundled_products( $download_id ) as $bundled_item ) {
+					
+					$bundled_download_id = edd_get_bundle_item_id( $bundled_item );
+					$bundled_price_id = edd_get_bundle_item_price_id( $bundled_item );
+					
+					$bundled_items[] = array(
+						'id' => $bundled_download_id,
+						'item_number' => array(
+							'options' => array(
+								'price_id' => $bundled_price_id,
+							),
+						),
+					);
+					
+				}
+	
+				// Remove Bundle from the List, as we are going to add the individual items after this loop
+				unset( $cart_items[ $index ] );
+	
+			endforeach;
+	
+			$cart_items = $cart_items + $bundled_items;
 
-			<?php foreach ( $cart_items as $item ) :
+			foreach ( $cart_items as $item ) :
 
 				$download_id = $item['id'];
 	
