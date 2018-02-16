@@ -82,9 +82,13 @@ class RBM_CPT_Documentation extends RBM_CPT {
 			'order'       => 'ASC',
 		) );
 
-		rbm_do_field_list( 'documentation_order', false, false, array(
+		rbm_fh_do_field_list( array(
+			'name' => 'documentation_order',
+			'group' => 'documentation_order',
 			'items' => wp_list_pluck( $docs, 'post_title', 'ID' ),
 		) );
+		
+		rbm_fh_init_field_group( 'documentation_order' );
 	}
 
 	/**
