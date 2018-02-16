@@ -5,7 +5,7 @@
  *
  * Creates the post type.
  *
- * @since {{VERSION}}
+ * @since 1.0.0
  */
 class RBM_CPT_Documentation extends RBM_CPT {
 
@@ -31,7 +31,7 @@ class RBM_CPT_Documentation extends RBM_CPT {
 	/**
 	 * RBM_CPT_Documentation constructor.
 	 *
-	 * @since {{VERSION}}
+	 * @since 1.0.0
 	 */
 	function __construct() {
 
@@ -53,7 +53,7 @@ class RBM_CPT_Documentation extends RBM_CPT {
 	/**
 	 * Adds meta boxes to the post type edit page.
 	 *
-	 * @since {{VERSION}}
+	 * @since 1.0.0
 	 * @access private
 	 */
 	function add_meta_boxes() {
@@ -69,7 +69,7 @@ class RBM_CPT_Documentation extends RBM_CPT {
 	/**
 	 * Metabox callback for the order.
 	 *
-	 * @since {{VERSION}}
+	 * @since 1.0.0
 	 * @access private
 	 */
 	function mb_order() {
@@ -94,7 +94,7 @@ class RBM_CPT_Documentation extends RBM_CPT {
 	/**
 	 * Saves the new order.
 	 *
-	 * @since {{VERSION}}
+	 * @since 1.0.0
 	 * @access private
 	 *
 	 * @param array $fields Fields to save.
