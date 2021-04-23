@@ -7,7 +7,7 @@
  * Author URI: http://realbigmarketing.com
  * Text Domain: rbp-documentation
  * GitHub Plugin URI: realbigplugins/rbp-documentation-cpt
- * GitHub Branch: develop
+ * GitHub Branch: master
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
