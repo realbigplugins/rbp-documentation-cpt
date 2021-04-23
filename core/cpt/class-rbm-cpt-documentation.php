@@ -47,7 +47,7 @@ class RBM_CPT_Documentation extends RBM_CPT {
 		parent::__construct();
 
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
-		add_filter( 'rbm_fields_save', array( $this, 'save_order' ) );
+		add_filter( '_rbm_fieldhelpers_documentation_order_fields_save', array( $this, 'save_order' ), 10, 2 );
 	}
 
 	/**
@@ -82,10 +82,13 @@ class RBM_CPT_Documentation extends RBM_CPT {
 			'order'       => 'ASC',
 		) );
 
+		$items = wp_list_pluck( $docs, 'post_title', 'ID' );
+
 		rbm_fh_do_field_list( array(
 			'name' => 'documentation_order',
 			'group' => 'documentation_order',
-			'items' => wp_list_pluck( $docs, 'post_title', 'ID' ),
+			'items' => $items,
+			'value' => array_keys( $items ),
 		) );
 		
 		rbm_fh_init_field_group( 'documentation_order' );
@@ -104,10 +107,12 @@ class RBM_CPT_Documentation extends RBM_CPT {
 	 */
 	function save_order( $fields, $post_ID ) {
 
-		if ( ( $key = array_search( '_rbm_documentation_order', $fields ) ) === false ) {
+		if ( ( $key = array_search( 'documentation_order', $fields ) ) === false ) {
 
 			return $fields;
 		}
+
+		remove_filter( '_rbm_fieldhelpers_documentation_order_fields_save', array( $this, 'save_order' ), 10, 2 );
 
 		$order = isset( $_POST['_rbm_documentation_order'] ) ? $_POST['_rbm_documentation_order'] : false;
 
@@ -115,6 +120,7 @@ class RBM_CPT_Documentation extends RBM_CPT {
 
 			foreach ( $order as $i => $post_ID ) {
 
+				// Triggers save_post, which can cause an infinite loop if we don't remove our filter before hand
 				wp_update_post( array(
 					'ID'         => $post_ID,
 					'menu_order' => $i,
@@ -123,6 +129,8 @@ class RBM_CPT_Documentation extends RBM_CPT {
 		}
 
 		unset( $fields[ $key ] );
+
+		add_filter( '_rbm_fieldhelpers_documentation_order_fields_save', array( $this, 'save_order' ), 10, 2 );
 
 		return $fields;
 	}
