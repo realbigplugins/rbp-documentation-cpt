@@ -238,6 +238,8 @@ class CPT_Documentation_Plugin {
 
 		$top_level_documentation = $this->get_top_parent_page_id( $post->post_parent );
 
+		if ( ! $top_level_documentation ) return $url;
+
 		$parent_permalink = get_permalink( $top_level_documentation );
 
 		$anchor = preg_replace( '/^([0-9]|[a-z])+\./i', '', $post->post_title );
@@ -275,6 +277,9 @@ class CPT_Documentation_Plugin {
 
 		if ( ! $post && is_admin() && isset( $_GET['post'] ) ) {
 			$post = get_post( $_GET['post'] );
+		}
+		else if ( ! $post && $post_id !== 0 ) {
+			$post = get_post( $post_id );
 		}
 		elseif ( ! $post ) {
 			return false;
