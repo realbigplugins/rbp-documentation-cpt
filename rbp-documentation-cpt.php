@@ -2,12 +2,12 @@
 /**
  * Plugin Name: RBP Documentation CPT
  * Description: Creates Documentation custom post types and its related Fields.
- * Version: 1.1.1
- * Author: Eric Defore
+ * Version: 1.1.2
+ * Author: Real Big Marketing
  * Author URI: http://realbigmarketing.com
  * Text Domain: rbp-documentation
  * GitHub Plugin URI: realbigplugins/rbp-documentation-cpt
- * GitHub Branch: develop
+ * GitHub Branch: master
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
